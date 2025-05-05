@@ -2,10 +2,15 @@ import { mainScript } from './main_script.js';
 
 const GameManager = async () => {
   const $PressEnterToContinue = document.querySelector('#pressEnterToContinue');
+  const $maxScore = document.getElementById('maxScore');
+  let maxScore = 0;
 
   for (let i = 0; i < 100; ++i) {
     // mainScript for 1 round
-    const passedTime = await mainScript();
+    const score = await mainScript();
+    maxScore = Math.max(maxScore, score);
+    $maxScore.innerText = `maxScore ${maxScore.toFixed(3)}`;
+
     // EnterToContinue
     await new Promise((resolve) => {
       $PressEnterToContinue.classList.toggle('show');
