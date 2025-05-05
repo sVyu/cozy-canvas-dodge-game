@@ -1,3 +1,5 @@
+import { Bullet } from './bullet.js';
+import { GenerateBullet } from './generate_bullet.js';
 import { Player } from './player.js';
 
 const mainScript = () => {
@@ -5,25 +7,35 @@ const mainScript = () => {
   const context = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  // console.log(Player);
 
   const player = new Player({
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
     radius: 50,
     color: 'white',
-    speed: 10,
+    speed: 15,
     context,
   });
 
-  const draw = () => {
-    // ÀÌÀü ±×¸² Áö¿ì±â
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    // player ±×¸®±â
-    player.Draw();
-  };
-  setInterval(draw, 5);
+  const bullets = [];
 
-  // ¹æÇâÅ° ÀÌµ¿
+  const draw = () => {
+    // ì´ì „ ê·¸ë¦¼ ì§€ìš°ê¸°
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // player ê·¸ë¦¬ê¸°
+    player.Draw();
+    // console.log(player.GetX(), player.GetY());
+
+    bullets.map((el) => el.Draw());
+    bullets.map((el) => el.Move());
+  };
+
+  setInterval(draw, 10);
+  setInterval(() => GenerateBullet({ bullets, context, player }), 500);
+
+  // TODO : player object ì•ˆì— ì‚½ìž…í•˜ê¸°
+  // ë°©í–¥í‚¤ ì´ë™
   const keyCheck = (e) => {
     var code = e.keyCode;
     // console.log('pressed KeyCode :', code);
