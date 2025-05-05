@@ -6,6 +6,7 @@ export const mainScript = async () => {
   return new Promise((resolve) => {
     const canvas = document.getElementById('gameCanvas');
     const $currScore = document.getElementById('currScore');
+    const $bombCnt = document.getElementById('bombCnt');
 
     const context = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -19,6 +20,8 @@ export const mainScript = async () => {
       speed: 15,
       context,
     });
+    $bombCnt.innerText = `💣`.repeat(player.GetBombCnt());
+
     const startTime = new Date();
     let elapsedTime = 0;
     const bullets = [];
@@ -29,7 +32,7 @@ export const mainScript = async () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
       // player, bullets 그리기
       // player Move는 별도
-      player.Draw();
+      player.DrawPlayer();
       bullets.map((el) => el.Draw());
       bullets.map((el) => el.Move());
     };
@@ -78,9 +81,13 @@ export const mainScript = async () => {
         case 40: //Down key
           player.MoveDown();
           break;
-        case 32:
-          // bomb
-          console.log('spacebar pressed');
+        case 32: // Space Bar Key
+          player.UseBomb();
+
+          let cnts = bullets.map((bullet) => bullet.GetX(), bullet.GetY());
+
+          $bombCnt.innerText = `💣`.repeat(player.GetBombCnt());
+          break;
         default:
           break;
       }

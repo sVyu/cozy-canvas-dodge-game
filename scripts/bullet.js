@@ -22,6 +22,10 @@ export const Bullet = function (options) {
     this.context.fill();
   };
 
+  this.GetX = () => this.x;
+  this.GetY = () => this.Y;
+  this.GetRadius = () => this.Radius;
+
   this.Move = () => {
     this.x += this.deltaX;
     this.y += this.deltaY;
