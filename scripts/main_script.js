@@ -16,9 +16,9 @@ export const mainScript = async () => {
     const player = new Player({
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
-      radius: 50,
-      color: 'white',
-      speed: 10,
+      radius: 35,
+      color: 'orange',
+      speed: 5,
       context,
       bomb_cnt: 5,
       bomb_radius: 300,
