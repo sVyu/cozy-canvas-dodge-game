@@ -4,6 +4,8 @@ import { Player } from './player.js';
 
 const mainScript = () => {
   const canvas = document.getElementById('gameCanvas');
+  const $currScore = document.getElementById('currScore');
+
   const context = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -18,6 +20,7 @@ const mainScript = () => {
     context,
   });
 
+  const startTime = new Date();
   const bullets = [];
 
   const draw = () => {
@@ -33,6 +36,10 @@ const mainScript = () => {
 
   setInterval(draw, 10);
   setInterval(() => GenerateBullet({ bullets, context, player }), 500);
+  setInterval(() => {
+    const score = new Date() - startTime;
+    $currScore.innerText = `curr Score : ${(score / 1000).toFixed(3)}`;
+  }, 10);
 
   // TODO : player object 안에 삽입하기
   // 방향키 이동
