@@ -1,4 +1,4 @@
-import { checkPlayerHit } from './check_player_hit.js';
+import { checkPlayerHitWithBullets } from './check_player_hit_with_bullets.js';
 import { GenerateBullet } from './generate_bullet.js';
 import { Player } from './player.js';
 
@@ -53,7 +53,7 @@ export const mainScript = async () => {
       $currScore.innerText = `curr Score : ${(elapsedTime / 1000).toFixed(3)}`;
     }, 10);
     const checkPlayerHitInterval = setInterval(() => {
-      const isPlayerHit = checkPlayerHit({ player, bullets });
+      const isPlayerHit = checkPlayerHitWithBullets({ player, bullets });
       if (isPlayerHit) {
         gameOverAndReturnScore();
       }
@@ -84,7 +84,7 @@ export const mainScript = async () => {
         case 32: // Space Bar Key
           player.UseBomb();
 
-          let cnts = bullets.map((bullet) => bullet.GetX(), bullet.GetY());
+          // bullets.map();
 
           $bombCnt.innerText = `💣`.repeat(player.GetBombCnt());
           break;

@@ -9,6 +9,10 @@ export const Player = function (options) {
   this.bomb_cnt = 3;
   // this.bombInfos = []; // x, y, generatedTime
 
+  this.GetX = () => this.x;
+  this.GetY = () => this.y;
+  this.GetRadius = () => this.radius;
+
   this.MoveRight = () => {
     this.x += this.speed;
   };
@@ -21,9 +25,6 @@ export const Player = function (options) {
   this.MoveDown = () => {
     this.y += this.speed;
   };
-
-  this.GetX = () => this.x;
-  this.GetY = () => this.y;
 
   this.UseBomb = () => {
     if (this.bomb_cnt <= 0) return;
