@@ -6,7 +6,7 @@ export const Bullet = function (options) {
 
   this.x = init_x;
   this.y = init_y;
-  this.radius = 50;
+  this.radius = 25;
   this.color = 'blue';
   this.speed = 3;
   this.context = options.context;

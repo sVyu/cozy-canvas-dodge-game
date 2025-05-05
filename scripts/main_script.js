@@ -1,4 +1,5 @@
 import { Bullet } from './bullet.js';
+import { GenerateBullet } from './generate_bullet.js';
 import { Player } from './player.js';
 
 const mainScript = () => {
@@ -17,11 +18,7 @@ const mainScript = () => {
     context,
   });
 
-  const bullets = [
-    new Bullet({ context, targetX: player.GetX(), targetY: player.GetY() }),
-    new Bullet({ context, targetX: player.GetX(), targetY: player.GetY() }),
-    new Bullet({ context, targetX: player.GetX(), targetY: player.GetY() }),
-  ];
+  const bullets = [];
 
   const draw = () => {
     // 이전 그림 지우기
@@ -33,7 +30,9 @@ const mainScript = () => {
     bullets.map((el) => el.Draw());
     bullets.map((el) => el.Move());
   };
+
   setInterval(draw, 10);
+  setInterval(() => GenerateBullet({ bullets, context, player }), 500);
 
   // TODO : player object 안에 삽입하기
   // 방향키 이동
