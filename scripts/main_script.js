@@ -45,7 +45,7 @@ export const mainScript = async () => {
     const onKeyUp = (e) => (pressingKeys[e.keyCode] = false);
     const onKeyDown = (e) => {
       pressingKeys[e.keyCode] = true;
-      if (e.keyCode == 32) {
+      if (e.keyCode == 32 && player.GetBombCnt() > 0) {
         // SpaceBar for Bomb
         player.UseBomb();
         const bulletsCntBeforeBomb = bullets.length;
