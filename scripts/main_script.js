@@ -1,3 +1,4 @@
+import { checkPlayerHit } from './check_player_hit.js';
 import { GenerateBullet } from './generate_bullet.js';
 import { Player } from './player.js';
 
@@ -9,7 +10,6 @@ export const mainScript = async () => {
     const context = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    // console.log(Player);
 
     const player = new Player({
       x: window.innerWidth / 2,
@@ -27,11 +27,17 @@ export const mainScript = async () => {
     const draw = () => {
       // 이전 그림 지우기
       context.clearRect(0, 0, canvas.width, canvas.height);
-      // player 그리기
+      // player, bullets 그리기
+      // player Move는 별도
       player.Draw();
-
       bullets.map((el) => el.Draw());
       bullets.map((el) => el.Move());
+    };
+
+    const gameOverAndReturnScore = () => {
+      intervals.map((interval) => clearInterval(interval));
+      window.removeEventListener('keydown', keyCheck, false);
+      resolve(elapsedTime);
     };
 
     const drawInterval = setInterval(draw, 10);
@@ -43,13 +49,18 @@ export const mainScript = async () => {
       elapsedTime = new Date() - startTime;
       $currScore.innerText = `curr Score : ${(elapsedTime / 1000).toFixed(3)}`;
     }, 10);
-    intervals.push(drawInterval, gerateBulletInterval, setScoreInterval);
-
-    const gameOverAndReturnScore = () => {
-      intervals.map((interval) => clearInterval(interval));
-      window.removeEventListener('keydown', keyCheck, false);
-      resolve(elapsedTime);
-    };
+    const checkPlayerHitInterval = setInterval(() => {
+      const isPlayerHit = checkPlayerHit({ player, bullets });
+      if (isPlayerHit) {
+        gameOverAndReturnScore();
+      }
+    }, 10);
+    intervals.push(
+      drawInterval,
+      gerateBulletInterval,
+      setScoreInterval,
+      checkPlayerHitInterval
+    );
 
     // 방향키
     const keyCheck = (e) => {
