@@ -49,7 +49,6 @@ export const mainScript = async () => {
       intervals.map((interval) => clearInterval(interval));
       window.removeEventListener('keydown', keyCheck, false);
       resolve(elapsedTime);
-      // return;
     };
 
     // 방향키
