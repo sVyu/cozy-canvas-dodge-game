@@ -19,6 +19,9 @@ export const Player = function (options) {
     this.y += this.speed;
   };
 
+  this.GetX = () => this.x;
+  this.GetY = () => this.y;
+
   this.Draw = () => {
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);

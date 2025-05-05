@@ -1,4 +1,4 @@
-import { GetRandomInitBulletPosition } from './get_random_init_bullet_position.js';
+import { Bullet } from './bullet.js';
 import { Player } from './player.js';
 
 const mainScript = () => {
@@ -13,23 +13,30 @@ const mainScript = () => {
     y: window.innerHeight / 2,
     radius: 50,
     color: 'white',
-    speed: 10,
+    speed: 15,
     context,
   });
 
-  const bullets = [];
+  const bullets = [
+    new Bullet({ context, targetX: player.GetX(), targetY: player.GetY() }),
+    new Bullet({ context, targetX: player.GetX(), targetY: player.GetY() }),
+    new Bullet({ context, targetX: player.GetX(), targetY: player.GetY() }),
+  ];
 
   const draw = () => {
-    // ÀÌÀü ±×¸² Áö¿ì±â
+    // ì´ì „ ê·¸ë¦¼ ì§€ìš°ê¸°
     context.clearRect(0, 0, canvas.width, canvas.height);
-    // player ±×¸®±â
+    // player ê·¸ë¦¬ê¸°
     player.Draw();
+    // console.log(player.GetX(), player.GetY());
+
+    bullets.map((el) => el.Draw());
+    bullets.map((el) => el.Move());
   };
-  setInterval(draw, 5);
+  setInterval(draw, 10);
 
-  // setInterval(GetRandomInitBulletPosition, 500);
-
-  // ¹æÇâÅ° ÀÌµ¿
+  // TODO : player object ì•ˆì— ì‚½ìž…í•˜ê¸°
+  // ë°©í–¥í‚¤ ì´ë™
   const keyCheck = (e) => {
     var code = e.keyCode;
     // console.log('pressed KeyCode :', code);
