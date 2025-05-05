@@ -5,6 +5,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-family: 'Black Ops One', system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 #gameCanvas {
@@ -20,6 +24,7 @@ body {
   top: 2vh;
   font-size: 3vh;
   color: white;
+  text-align: center;
 }
 
 #currScore {
@@ -28,6 +33,7 @@ body {
   top: 2vh;
   color: white;
   font-size: 3vh;
+  text-align: center;
 }
 
 #pressEnterToContinue {
@@ -43,45 +49,35 @@ body {
   border-radius: 100%;
   position: relative;
 
-  div:first-child {
+  div {
     position: absolute;
     z-index: 10001;
-    transform: rotate(30deg);
     width: 50vmin;
     height: 50vmin;
     background: black;
-    border: 5px;
-    border-color: #00224d;
+    border: 1vmin;
     border-style: solid;
+  }
+
+  div:first-child {
+    transform: rotate(30deg);
+    border-color: #00224d;
   }
 
   div:nth-child(2) {
-    position: absolute;
-    z-index: 10001;
     transform: rotate(45deg);
-    width: 50vmin;
-    height: 50vmin;
-    background: black;
-    border: 5px;
     border-color: #5d0e41;
-    border-style: solid;
   }
 
   div:nth-child(3) {
-    position: absolute;
-    z-index: 10001;
     transform: rotate(60deg);
-    width: 50vmin;
-    height: 50vmin;
-    background: black;
-    border: 5px;
     border-color: #a0153e;
-    border-style: solid;
   }
 
   p {
     z-index: 10002;
     position: absolute;
+    font-size: 3vmin;
   }
 }
 
@@ -98,8 +94,8 @@ body {
 
 #bombCnt {
   position: absolute;
-  left: 2vh;
+  left: 2vw;
   bottom: 2vh;
-  font-size: 3vh;
+  font-size: 3vmin;
   color: white;
 }

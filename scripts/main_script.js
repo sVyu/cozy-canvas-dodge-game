@@ -42,7 +42,6 @@ export const mainScript = async () => {
     };
 
     const getScore = () => elapsedTime / 1000 + deletedBulletCntsWithBomb;
-
     const gameOverAndReturnScore = () => {
       intervals.map((interval) => clearInterval(interval));
       window.removeEventListener('keydown', keyCheck, false);
@@ -54,10 +53,9 @@ export const mainScript = async () => {
       () => GenerateBullet({ bullets, context, player }),
       500
     );
-
     const setScoreInterval = setInterval(() => {
       elapsedTime = new Date() - startTime;
-      $currScore.innerText = `curr Score : ${getScore().toFixed(3)}`;
+      $currScore.innerHTML = `curr score<br/> ${getScore().toFixed(3)}`;
     }, 10);
     const checkPlayerHitInterval = setInterval(() => {
       const isPlayerHit = checkPlayerHitWithBullets({ player, bullets });
