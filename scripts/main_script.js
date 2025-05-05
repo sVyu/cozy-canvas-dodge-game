@@ -18,7 +18,7 @@ export const mainScript = async () => {
       y: window.innerHeight / 2,
       radius: 50,
       color: 'white',
-      speed: 15,
+      speed: 10,
       context,
       bomb_cnt: 5,
       bomb_radius: 300,
@@ -31,6 +31,7 @@ export const mainScript = async () => {
 
     let bullets = [];
     const intervals = [];
+    const pressingKeys = [];
 
     const draw = () => {
       context.clearRect(0, 0, canvas.width, canvas.height);
@@ -41,10 +42,47 @@ export const mainScript = async () => {
       });
     };
 
+    const onKeyUp = (e) => (pressingKeys[e.keyCode] = false);
+    const onKeyDown = (e) => {
+      pressingKeys[e.keyCode] = true;
+      if (e.keyCode == 32) {
+        // SpaceBar for Bomb
+        player.UseBomb();
+        const bulletsCntBeforeBomb = bullets.length;
+        const filterdBullets = bullets.filter(
+          (bullet) =>
+            !CheckHit({
+              x1: player.GetX(),
+              y1: player.GetY(),
+              radius1: player.GetBombRadius(),
+              x2: bullet.GetX(),
+              y2: bullet.GetY(),
+              radius2: bullet.GetRadius(),
+            })
+        );
+
+        const bulletCntsAfterBomb = filterdBullets.length;
+        const deletedBulletCnts = bulletsCntBeforeBomb - bulletCntsAfterBomb;
+        deletedBulletCntsWithBomb += deletedBulletCnts;
+
+        bullets = filterdBullets;
+        $bombCnt.innerText = `💣`.repeat(player.GetBombCnt());
+      }
+    };
+
+    // 방향키
+    const moveCheck = () => {
+      if (pressingKeys[37]) player.MoveLeft();
+      if (pressingKeys[38]) player.MoveUp();
+      if (pressingKeys[39]) player.MoveRight();
+      if (pressingKeys[40]) player.MoveDown();
+    };
+
     const getScore = () => elapsedTime / 1000 + deletedBulletCntsWithBomb;
     const gameOverAndReturnScore = () => {
       intervals.map((interval) => clearInterval(interval));
-      window.removeEventListener('keydown', keyCheck, false);
+      window.removeEventListener('keydown', onKeyDown, false);
+      window.removeEventListener('keyup', onKeyUp, false);
       resolve(getScore());
     };
 
@@ -63,56 +101,17 @@ export const mainScript = async () => {
         gameOverAndReturnScore();
       }
     }, 10);
+    const checkPressingKeys = setInterval(() => moveCheck(), 10);
+
     intervals.push(
       drawInterval,
       gerateBulletInterval,
       setScoreInterval,
-      checkPlayerHitInterval
+      checkPlayerHitInterval,
+      checkPressingKeys
     );
 
-    // 방향키
-    const keyCheck = (e) => {
-      const code = e.keyCode;
-      switch (code) {
-        case 37: //Left key
-          player.MoveLeft();
-          break;
-        case 38: //Up key
-          player.MoveUp();
-          break;
-        case 39: //Right key
-          player.MoveRight();
-          break;
-        case 40: //Down key
-          player.MoveDown();
-          break;
-        case 32: // Space Bar Key
-          if (player.GetBombCnt() <= 0) break;
-          player.UseBomb();
-          const bulletsCntBeforeBomb = bullets.length;
-          const filterdBullets = bullets.filter(
-            (bullet) =>
-              !CheckHit({
-                x1: player.GetX(),
-                y1: player.GetY(),
-                radius1: player.GetBombRadius(),
-                x2: bullet.GetX(),
-                y2: bullet.GetY(),
-                radius2: bullet.GetRadius(),
-              })
-          );
-
-          const bulletCntsAfterBomb = filterdBullets.length;
-          const deletedBulletCnts = bulletsCntBeforeBomb - bulletCntsAfterBomb;
-          deletedBulletCntsWithBomb += deletedBulletCnts;
-
-          bullets = filterdBullets;
-          $bombCnt.innerText = `💣`.repeat(player.GetBombCnt());
-          break;
-        default:
-          break;
-      }
-    };
-    window.addEventListener('keydown', keyCheck, false);
+    window.addEventListener('keydown', onKeyDown, false);
+    window.addEventListener('keyup', onKeyUp, false);
   });
 };
