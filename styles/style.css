@@ -1,3 +1,12 @@
+body {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #gameCanvas {
   position: absolute;
   width: 100%;
@@ -19,4 +28,70 @@
   top: 2vh;
   color: white;
   font-size: 3vh;
+}
+
+#pressEnterToContinue {
+  z-index: 10000;
+  background: black;
+  color: white;
+  width: 50vmin;
+  height: 50vmin;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  position: relative;
+
+  div:first-child {
+    position: absolute;
+    z-index: 10001;
+    transform: rotate(30deg);
+    width: 50vmin;
+    height: 50vmin;
+    background: black;
+    border: 5px;
+    border-color: #00224d;
+    border-style: solid;
+  }
+
+  div:nth-child(2) {
+    position: absolute;
+    z-index: 10001;
+    transform: rotate(45deg);
+    width: 50vmin;
+    height: 50vmin;
+    background: black;
+    border: 5px;
+    border-color: #5d0e41;
+    border-style: solid;
+  }
+
+  div:nth-child(3) {
+    position: absolute;
+    z-index: 10001;
+    transform: rotate(60deg);
+    width: 50vmin;
+    height: 50vmin;
+    background: black;
+    border: 5px;
+    border-color: #a0153e;
+    border-style: solid;
+  }
+
+  p {
+    z-index: 10002;
+    position: absolute;
+  }
+}
+
+.fade {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.fade.show {
+  opacity: 1;
+  visibility: visible;
 }

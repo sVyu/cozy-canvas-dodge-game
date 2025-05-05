@@ -64,7 +64,7 @@ export const mainScript = async () => {
 
     // 방향키
     const keyCheck = (e) => {
-      var code = e.keyCode;
+      const code = e.keyCode;
       switch (code) {
         case 37: //Left key
           player.MoveLeft();
@@ -81,9 +81,6 @@ export const mainScript = async () => {
         case 32:
           // bomb
           console.log('spacebar pressed');
-        case 13:
-          console.log('enter pressed');
-          gameOverAndReturnScore();
         default:
           break;
       }
