@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* 스타일링: 캔버스 테두리 스타일 지정 */
+      #gameCanvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 캔버스 요소: 그래픽을 그릴 영역 -->
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script>
+      const canvas = document.getElementById('gameCanvas');
+      const context = canvas.getContext('2d');
+
+      const Box = function (options) {
+        this.x = options.x;
+        this.y = options.y;
+        this.width = options.width;
+        this.height = options.height;
+        // this.color = options.color;
+        this.speed = options.speed;
+        // this.direction = options.direction;
+
+        this.setX = () => {
+          this.x += this.speed;
+        };
+      };
+
+      var bullets = [
+        new Box({
+          x: 30,
+          y: 50,
+          width: 10,
+          height: 10,
+          color: 'blue',
+          speed: 0.2,
+        }),
+      ];
+
+      // 공 그리는 함수
+      function drawBall() {
+        context.beginPath();
+        context.arc(x, y, 10, 0, Math.PI * 2);
+        context.fillStyle = '#0095DD'; // 공의 색상
+        context.fill();
+        context.closePath();
+      }
+
+      // function draw() {
+      //   context.beginPath();
+      //   context.arc(x, y, 10, 0, Math.PI * 2);
+      //   context.fillStyle = '#0095DD'; // 공의 색상
+      //   context.fill();
+      //   context.closePath();
+      // }
+      function drawBox(box) {
+        context.fillStyle = 'red';
+        box.setX();
+        // box.Move();
+        context.fillRect(box.x, box.y, box.width, box.height);
+      }
+
+      // 공의 초기 위치 및 속도 설정
+      let x = canvas.width / 2;
+      let y = canvas.height - 30;
+      let dx = 2;
+      let dy = -2;
+      // 전체 그리기 함수
+      function draw() {
+        // 이전 그림 지우기
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 공 그리기
+        drawBall();
+
+        // 캔버스 경계에서 튕기기
+        if (x + dx > canvas.width - 10 || x + dx < 10) {
+          dx = -dx; // x 방향 전환
+        }
+
+        if (y + dy > canvas.height - 10 || y + dy < 10) {
+          dy = -dy; // y 방향 전환
+        }
+
+        // 다음 프레임으로 이동
+        // x += dx;
+        // y += dy;
+
+        bullets.forEach(function (b) {
+          drawBox(b);
+        });
+      }
+
+      // 일정 간격으로 draw 함수 호출하여 애니메이션 생성
+      setInterval(draw, 10);
+
+      window.addEventListener('keydown', this.check, false);
+      function check(e) {
+        var code = e.keyCode;
+        switch (code) {
+          case 37:
+            x -= dx;
+            break; //Left key
+          case 38:
+            y += dy;
+            break; //Up key
+          case 39:
+            x += dx;
+            // alert('Right');
+            break; //Right key
+          case 40:
+            y -= dy;
+            // alert('Down');
+            break; //Down key
+          case 32:
+            console.log(bullets);
+          default:
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>
