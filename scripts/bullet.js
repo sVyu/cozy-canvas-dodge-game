@@ -15,6 +15,10 @@ export const Bullet = function (options) {
   this.deltaY = (options.targetY - init_y) / (this.speed * 100);
   // TODO : 분모에 *100 이 아닌 frame별 조정
 
+  this.GetX = () => this.x;
+  this.GetY = () => this.y;
+  this.GetRadius = () => this.radius;
+
   this.Draw = () => {
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);

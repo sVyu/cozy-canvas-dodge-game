@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
     <canvas id="gameCanvas"></canvas>
-    <div id="maxScore">max score</div>
-    <div id="currScore">curr score</div>
+    <div id="maxScore"></div>
+    <div id="currScore"></div>
     <div id="pressEnterToContinue" class="fade">
       <div></div>
       <div></div>
       <div></div>
       <p>press Enter To Continue</p>
     </div>
+    <div id="bombCnt"></div>
     <script type="module" src="./scripts/game_manager.js"></script>
   </body>
 </html>
