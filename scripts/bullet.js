@@ -6,9 +6,9 @@ export const Bullet = function (options) {
 
   this.x = init_x;
   this.y = init_y;
-  this.radius = 25;
+  this.radius = 20;
   this.color = 'blue';
-  this.speed = 3;
+  this.speed = 4;
   this.context = options.context;
 
   this.deltaX = (options.targetX - init_x) / (this.speed * 100);
