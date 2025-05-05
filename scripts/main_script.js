@@ -1,3 +1,4 @@
+import { GetRandomInitBulletPosition } from './get_random_init_bullet_position.js';
 import { Player } from './player.js';
 
 const mainScript = () => {
@@ -5,7 +6,7 @@ const mainScript = () => {
   const context = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  console.log(Player);
+  // console.log(Player);
 
   const player = new Player({
     x: window.innerWidth / 2,
@@ -16,6 +17,8 @@ const mainScript = () => {
     context,
   });
 
+  const bullets = [];
+
   const draw = () => {
     // 이전 그림 지우기
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -23,6 +26,8 @@ const mainScript = () => {
     player.Draw();
   };
   setInterval(draw, 5);
+
+  // setInterval(GetRandomInitBulletPosition, 500);
 
   // 방향키 이동
   const keyCheck = (e) => {
