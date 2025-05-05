@@ -5,6 +5,7 @@ const mainScript = () => {
   const context = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  console.log(Player);
 
   const player = new Player({
     x: window.innerWidth / 2,
