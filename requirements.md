@@ -1,0 +1,25 @@
+🚀 requirements.md
+
+- player : 우선 원으로 구현 -> 이후 삼각형
+  - 방향키로 이동 가능, 이동 속도는 일정
+  - bullet에 맞으면 게임 종료
+    - 피격 판정 구현
+- bullet : 상하좌우 벽으로부터 랜덤하게 생성
+  - 생성 시 player 위치로 날아가게 처리
+    - (option) 유도 기능 추가
+  - 소멸 로직
+    - 벽 충돌 시 제거
+- bomb : player 일정 범위 안의 모든 탄 제거
+  - 특정 버튼 입력으로 구현 (ex. Space)
+  - 형태 : 원 / 네모
+- score : 시간을 베이스로 소수점 세 자리까지 표현
+  - (option) bomb로 bullets 없앨 시 제거한 bullet 개수당 추가 score
+- GameManager (idea : Unity) - Singletone
+  - 게임 재시작 기능 (Enter Key)
+    - 모든 bullets 제거
+    - player 재생성
+    - score 초기화
+    - bomb 3개 초기화
+    - (option) 음악 추가
+    - (option) 게임 종료 시 점수 음성으로 알려주기 - 😄
+    - (option) 난이도 설정 (ex. 벽에 맞고 반사되는 탄)
